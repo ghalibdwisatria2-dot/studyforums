@@ -1,1 +1,368 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Forum Pembelajaran SD (Kelas 1-6) — Ghalib Dwi Satria</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --green-1:#e9f9ef;
+      --green-2:#c8f0d6;
+      --green-3:#7ad293;
+      --green-4:#2ea153;
+      --accent:#ffffff;
+      --card-shadow: 0 6px 20px rgba(46,161,83,0.12);
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,var(--green-1),#f6fff8);min-height:100vh;color:#0f2b1f}
+    .container{max-width:980px;margin:36px auto;padding:20px}
 
+    header{display:flex;align-items:center;gap:16px}
+    .logo{width:64px;height:64px;border-radius:16px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--green-3),var(--green-4));color:var(--accent);font-weight:700;font-size:20px;box-shadow:var(--card-shadow)}
+    h1{margin:0;font-size:20px}
+    p.lead{margin:6px 0 18px;color:#2f4f3f}
+
+    .card{background:var(--accent);border-radius:14px;padding:22px;box-shadow:var(--card-shadow);opacity:0;transform:translateY(8px);animation:fadeInUp .45s ease forwards}
+
+    form .row{display:flex;gap:12px;margin-bottom:12px}
+    label{font-size:13px;color:#2f4f3f;margin-bottom:6px;display:block}
+    input[type=text], input[type=date], select, textarea{width:100%;padding:10px 12px;border-radius:10px;border:1px solid #e6f2ea;font-size:14px;transition:box-shadow .18s ease,transform .12s ease}
+    input:focus, textarea:focus{outline:none;box-shadow:0 6px 18px rgba(46,161,83,0.08);transform:translateY(-2px)}
+    textarea{min-height:70px;resize:vertical}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,var(--green-3),var(--green-4));color:var(--accent);font-weight:600;border:none;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease}
+    .btn.ghost{display:inline-block;padding:10px 14px;border-radius:10px;background:transparent;border:2px solid rgba(46,161,83,0.12);color:var(--green-4);transition:transform .18s ease,box-shadow .18s ease}
+
+    .center{display:flex;justify-content:center;align-items:center}
+    .muted{color:#58786a;font-size:13px}
+
+    .hidden{display:none}
+
+    /* grade selector */
+    .grades{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
+    .grade{flex:1 1 30%;min-width:120px;padding:14px;border-radius:12px;background:linear-gradient(180deg,var(--green-2),#def7e4);text-align:center;cursor:pointer;border:1px solid rgba(46,161,83,0.08);transition:transform .25s ease,box-shadow .25s ease,opacity .2s ease}
+    .grade h3{margin:6px 0;font-size:18px}
+
+    /* Question area */
+    .question{padding:14px;border-radius:12px;border:1px dashed rgba(46,161,83,0.12);margin:10px 0}
+    .options{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+    .option{padding:10px;border-radius:10px;border:1px solid #eaf6ee;cursor:pointer;transition:transform .12s ease,box-shadow .12s ease}
+    .option.selected{background:linear-gradient(90deg,#f0fff4,#e9fdf0);border-color:var(--green-3);box-shadow:0 6px 16px rgba(46,161,83,0.06)}
+    .status{margin-top:12px}
+
+    footer{margin-top:18px;text-align:center;color:#3b5f4f;font-size:13px}
+
+    /* small animations */
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+    /* responsive */
+    @media (max-width:640px){
+      .row{flex-direction:column}
+      .grade{flex-basis:45%}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">SD</div>
+      <div>
+        <h1>Forum Pembelajaran SD (Kelas 1–6)</h1>
+        <p class="lead">Pemilik Forum: <strong>Ghalib Dwi Satria</strong><br>Platform pembelajaran cepat — estetis, cerah hijau, dan ramah anak. Isi biodata untuk mulai.</p>
+      </div>
+    </header>
+
+    <!-- Registration Card -->
+    <section id="registration" class="card" aria-label="Form pendaftaran">
+      <h2 style="margin-top:0">Isi Biodata Anak</h2>
+      <form id="bioForm">
+        <div class="row">
+          <div style="flex:1">
+            <label>Nama Anak</label>
+            <input id="nama" type="text" placeholder="Contoh: Budi" required />
+          </div>
+          <div style="width:160px">
+            <label>Username</label>
+            <input id="username" type="text" placeholder="contoh123" required />
+          </div>
+        </div>
+
+        <div class="row">
+          <div style="flex:1">
+            <label>Tempat Lahir</label>
+            <input id="tempat" type="text" placeholder="Kota/Kabupaten" required />
+          </div>
+          <div style="width:220px">
+            <label>Tanggal Lahir</label>
+            <input id="tgl" type="date" required />
+          </div>
+        </div>
+
+        <div class="row">
+          <div style="flex:1">
+            <label>Provinsi</label>
+            <input id="provinsi" type="text" placeholder="Contoh: Jawa Barat" required />
+          </div>
+          <div style="flex:1">
+            <label>Kabupaten</label>
+            <input id="kabupaten" type="text" placeholder="Contoh: Bandung" required />
+          </div>
+          <div style="flex:1">
+            <label>Kecamatan</label>
+            <input id="kecamatan" type="text" placeholder="Contoh: Sukajadi" required />
+          </div>
+        </div>
+
+        <div class="row">
+          <div style="flex:1">
+            <label>Asal Sekolah</label>
+            <input id="sekolah" type="text" placeholder="Nama Sekolah" required />
+          </div>
+          <div style="flex:1">
+            <label>Moto / Visi Singkat</label>
+            <input id="moto" type="text" placeholder="Contoh: Belajar dengan ceria" />
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:12px;margin-top:10px">
+          <button type="submit" class="btn">Daftar & Lanjut</button>
+          <button type="button" id="resetBtn" class="btn ghost">Reset</button>
+        </div>
+        <p id="formNote" class="muted" style="margin-top:12px">Data hanya disimpan sementara di browser (single page demo).</p>
+      </form>
+    </section>
+
+    <!-- Success + Choose Grade -->
+    <section id="chooseGrade" class="card hidden" aria-label="Pilih Kelas">
+      <h2>✅ Sukses mendaftar!</h2>
+      <p class="muted">Silakan pilih kelas untuk memulai latihan matematika.</p>
+
+      <div class="grades" id="gradesContainer">
+        <div class="grade" data-grade="1"><h3>Kelas 1</h3><div class="muted">Pengantar angka & operasi</div></div>
+        <div class="grade" data-grade="2"><h3>Kelas 2</h3><div class="muted">Penjumlahan & pengurangan</div></div>
+        <div class="grade" data-grade="3"><h3>Kelas 3</h3><div class="muted">Perkalian sederhana</div></div>
+        <div class="grade" data-grade="4"><h3>Kelas 4</h3><div class="muted">Pecahan & pengukuran</div></div>
+        <div class="grade" data-grade="5"><h3>Kelas 5</h3><div class="muted">Desimal & pengukuran</div></div>
+        <div class="grade" data-grade="6"><h3>Kelas 6</h3><div class="muted">Operasi campuran & masalah sehari-hari</div></div>
+      </div>
+
+      <div style="margin-top:12px" class="center">
+        <button id="logout" class="btn ghost">Ubah Biodata</button>
+      </div>
+    </section>
+
+    <!-- Questions Card -->
+    <section id="quizArea" class="card hidden" aria-label="Area kuis">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <h2 id="quizTitle">Latihan Kelas 1</h2>
+          <div class="muted" id="studentInfo"></div>
+        </div>
+        <div class="center">
+          <button id="backToGrades" class="btn ghost" style="margin-right:8px">Kembali</button>
+          <div id="scoreBadge" style="padding:8px 12px;border-radius:12px;background:#f0fff4;border:1px solid rgba(46,161,83,0.08);font-weight:600">Skor: 0/0</div>
+        </div>
+      </div>
+
+      <div id="questionsList" style="margin-top:12px"></div>
+
+      <div class="status">
+        <button id="submitQuiz" class="btn" style="margin-top:12px">Kirim Jawaban</button>
+      </div>
+    </section>
+
+    <footer>
+      Dibuat oleh <strong>Ghalib Dwi Satria</strong> — Demo Forum Pembelajaran SD. Tampilan: hijau cerah, estetik, ramah.
+    </footer>
+  </div>
+
+  <script>
+    // Simple single-file SPA behavior and sample questions per kelas
+    const bioForm = document.getElementById('bioForm');
+    const registration = document.getElementById('registration');
+    const chooseGrade = document.getElementById('chooseGrade');
+    const quizArea = document.getElementById('quizArea');
+
+    const gradesContainer = document.getElementById('gradesContainer');
+    const questionsList = document.getElementById('questionsList');
+    const quizTitle = document.getElementById('quizTitle');
+    const studentInfo = document.getElementById('studentInfo');
+    const scoreBadge = document.getElementById('scoreBadge');
+
+    const backToGrades = document.getElementById('backToGrades');
+    const submitQuiz = document.getElementById('submitQuiz');
+    const logout = document.getElementById('logout');
+    const resetBtn = document.getElementById('resetBtn');
+
+    let currentGrade = null;
+    let user = {};
+
+    // Sample questions by grade (simple, editable)
+    const bank = {
+      1: [
+        {q: 'Hitung: 2 + 3 = ?', options:["3","4","5","6"], a:2},
+        {q: 'Mana yang lebih besar: 7 atau 5?', options:["5","7","6","4"], a:1},
+        {q: 'Berapa jumlah 4 dan 2?', options:["5","6","7","8"], a:1}
+      ],
+      2: [
+        {q: 'Hitung: 15 - 6 = ?', options:["9","7","8","10"], a:0},
+        {q: '12 + 8 = ?', options:["20","18","22","19"], a:0},
+        {q: 'Jika Ani punya 5 apel lalu dapat 3 lagi, berapa?', options:["7","8","9","6"], a:1}
+      ],
+      3: [
+        {q: '3 x 4 = ?', options:["7","12","14","9"], a:1},
+        {q: 'Hitung: 18 ÷ 3 = ?', options:["6","5","4","3"], a:0},
+        {q: 'Berapakah 7 + (2 x 3)?', options:["13","11","10","12"], a:0}
+      ],
+      4: [
+        {q: '1/2 + 1/4 = ?', options:["3/4","2/4","1/4","1"], a:0},
+        {q: 'Panjang = 2 m 30 cm = ? cm', options:["230","2300","203","250"], a:0},
+        {q: 'Hitung: 45 ÷ 5 = ?', options:["9","8","7","6"], a:0}
+      ],
+      5: [
+        {q: '0.5 + 0.25 = ?', options:["0.75","0.7","0.85","1"], a:0},
+        {q: '2500 gram = ? kg', options:["2.5","25","0.25","250"], a:0},
+        {q: 'Jika 3 × x = 15, maka x = ?', options:["5","6","4","3"], a:0}
+      ],
+      6: [
+        {q: 'Hitung: 12 + 15 ÷ 3 = ?', options:["9","17","20","7"], a:1},
+        {q: 'Jika 2/3 dari 30 = ?', options:["20","10","15","25"], a:0},
+        {q: 'Sebuah kotak berisi 24 bola dibagi 6 anak, tiap anak mendapat?', options:["4","5","6","3"], a:0}
+      ]
+    };
+
+    function show(element){ element.classList.remove('hidden') }
+    function hide(element){ element.classList.add('hidden') }
+
+    bioForm.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      // collect info
+      user.nama = document.getElementById('nama').value.trim();
+      user.username = document.getElementById('username').value.trim();
+      user.tempat = document.getElementById('tempat').value.trim();
+      user.tgl = document.getElementById('tgl').value;
+      user.provinsi = document.getElementById('provinsi').value.trim();
+      user.kabupaten = document.getElementById('kabupaten').value.trim();
+      user.kecamatan = document.getElementById('kecamatan').value.trim();
+      user.sekolah = document.getElementById('sekolah').value.trim();
+      user.moto = document.getElementById('moto').value.trim();
+
+      // basic validation
+      if(!user.nama || !user.username){ alert('Mohon isi Nama dan Username.'); return }
+
+      // show success then grade selection
+      hide(registration);
+      show(chooseGrade);
+
+      // small success animation on chooseGrade
+      chooseGrade.style.opacity = 0; chooseGrade.style.transform = 'translateY(8px)';
+      setTimeout(()=>{ chooseGrade.style.opacity = 1; chooseGrade.style.transform = 'translateY(0)'; }, 80);
+    });
+
+    resetBtn.addEventListener('click', ()=> bioForm.reset());
+
+    gradesContainer.addEventListener('click', (e)=>{
+      const card = e.target.closest('.grade');
+      if(!card) return;
+      const g = card.dataset.grade;
+      openGrade(Number(g));
+    });
+
+    logout.addEventListener('click', ()=>{
+      // allow editing biodata
+      hide(chooseGrade);
+      show(registration);
+    });
+
+    backToGrades.addEventListener('click', ()=>{
+      hide(quizArea);
+      show(chooseGrade);
+      // reset score
+      scoreBadge.textContent = 'Skor: 0/0';
+    });
+
+    function openGrade(g){
+      currentGrade = g;
+      hide(chooseGrade);
+      show(quizArea);
+      quizTitle.textContent = 'Latihan Kelas ' + g;
+      studentInfo.textContent = `${user.nama} — ${user.sekolah} • ${user.provinsi}`;
+      renderQuestions(bank[g]);
+
+      // subtle entrance for quiz card
+      quizArea.style.opacity = 0; quizArea.style.transform = 'translateY(8px)';
+      setTimeout(()=>{ quizArea.style.opacity = 1; quizArea.style.transform = 'translateY(0)'; }, 80);
+    }
+
+    function renderQuestions(list){
+      questionsList.innerHTML = '';
+      list.forEach((item, idx)=>{
+        const qwrap = document.createElement('div'); qwrap.className='question';
+        qwrap.innerHTML = `<div><strong>Soal ${idx+1}.</strong> ${item.q}</div>`;
+        const opts = document.createElement('div'); opts.className='options';
+        item.options.forEach((op, j)=>{
+          const b = document.createElement('div'); b.className='option'; b.tabIndex = 0;
+          b.textContent = op;
+          b.addEventListener('click', ()=>{
+            // unselect siblings
+            Array.from(opts.children).forEach(ch=>ch.classList.remove('selected'));
+            b.classList.add('selected');
+            // store choice on item
+            item._selected = j;
+            // small pulse effect on selection
+            b.style.transform = 'scale(0.98)'; setTimeout(()=>b.style.transform = '',120);
+          });
+          opts.appendChild(b);
+        });
+        qwrap.appendChild(opts);
+        questionsList.appendChild(qwrap);
+      });
+      // reset score
+      scoreBadge.textContent = `Skor: 0/${list.length}`;
+    }
+
+    submitQuiz.addEventListener('click', ()=>{
+      const list = bank[currentGrade] || [];
+      let correct=0;
+      list.forEach(it=>{ if(typeof it._selected !== 'undefined' && it._selected === it.a) correct++ });
+      scoreBadge.textContent = `Skor: ${correct}/${list.length}`;
+      // gentle feedback animation
+      scoreBadge.animate([{transform:'scale(1)'},{transform:'scale(1.06)'},{transform:'scale(1)'}],{duration:320});
+      alert(`Kamu mendapat ${correct} dari ${list.length} soal.`);
+    });
+
+    // small enhancement: keyboard support for options
+    document.addEventListener('keydown', (e)=>{
+      if(e.key==='Enter'){ const focused = document.activeElement; if(focused && focused.classList && focused.classList.contains('option')) focused.click(); }
+    });
+
+    // preserve basic data in session storage for demo
+    window.addEventListener('beforeunload', ()=>{
+      sessionStorage.setItem('sd_forum_user', JSON.stringify(user));
+    });
+
+    // if session has user, prefill and show chooseGrade
+    window.addEventListener('load', ()=>{
+      const s = sessionStorage.getItem('sd_forum_user');
+      if(s){
+        try{ user = JSON.parse(s); if(user && user.nama){
+          // prefill
+          document.getElementById('nama').value = user.nama || '';
+          document.getElementById('username').value = user.username || '';
+          document.getElementById('tempat').value = user.tempat || '';
+          document.getElementById('tgl').value = user.tgl || '';
+          document.getElementById('provinsi').value = user.provinsi || '';
+          document.getElementById('kabupaten').value = user.kabupaten || '';
+          document.getElementById('kecamatan').value = user.kecamatan || '';
+          document.getElementById('sekolah').value = user.sekolah || '';
+          document.getElementById('moto').value = user.moto || '';
+          // show choose grade directly for convenience
+          hide(registration); show(chooseGrade);
+        }}catch(err){ console.warn('gagal membaca session',err) }
+      }
+    });
+  </script>
+</body>
+</html>
